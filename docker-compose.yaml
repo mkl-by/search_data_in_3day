@@ -1,0 +1,27 @@
+version: "3"
+services:
+  serweb: # наименование сервиса
+    build:
+      context: .   # откуда берем контекст (папка с проектом) находись тут и отсюда работай
+      dockerfile: Dockerfile # докерфайл с помощью которого запускаем, файл уже может называться подругому
+    container_name: project_test
+    volumes:
+      - ./:/src # подключаем папку с проектом из:в докер
+    ports:
+      - "8000:8000" # из: в докер
+    depends_on: # базы данных
+      - db  #  наименование базы данных в данном случае постгресс
+    env_file:
+      - db_keys.txt
+    command: sh -c 'python3 manage.py makemigrations&
+                    python3 manage.py migrate&
+                    python3 manage.py runserver 0.0.0.0:8000' # запускаем сервер
+                  #!!!!  python3 manage.py addholidays&
+
+
+
+  db: # cоздадим новый контейнер дб
+    image: postgres:latest # скачиваем последнюю версию с докерхаба
+    container_name: my_db # обзываем my_db
+    env_file:
+      - db_keys.txt # берем данные из файла db_keys, лежит в . где docker-compose.yaml и делаем пароль, юзера для постгресс

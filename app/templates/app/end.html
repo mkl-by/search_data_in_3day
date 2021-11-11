@@ -1,0 +1,25 @@
+{% extends 'app/index.html' %}
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">день</th>
+              <th scope="col">юзеров в час</th>
+                <th scope="col">всего покупок в день</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dat in date_all1 %}
+                {% for data1 in dat.date_al1 %}
+                    <tr>
+                      <td>{{ dat.datas }}  hour:   {{ data1.hour | time }}</td>
+                      <td>{{ data1.exp }}</td>
+                      <td>{{ data1.idd}}</td>
+                      <td>{{ data1.s | floatformat }}</td>
+                    </tr>
+                    {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ date_al }}
+{% endblock %}

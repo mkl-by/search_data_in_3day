@@ -1,0 +1,16 @@
+{% extends 'app/index.html' %}
+{% block cont %}
+    <table class="table">
+    {% include 'app/includ_table.html' %}
+    {% for dat in date_all %}
+    <tbody>
+        <tr>
+            <th scope="row">{{ dat.id }}</th>
+            <td>{{ dat.user_id }}</td>
+            <td>{{ dat.money }}</td>
+            <td>{{ dat.date }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
